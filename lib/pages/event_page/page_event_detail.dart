@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimal/components/components.dart';
 import 'package:minimal/models/models.dart';
+import 'package:minimal/utils/utils.dart';
 
 class EventDetailPage extends StatelessWidget {
   @override
@@ -39,12 +40,11 @@ class EventDetailPage extends StatelessWidget {
 
               Align(
                 alignment: Alignment.centerLeft,
-                child: TextHeadlineSecondary(text: '주소 : ${event.address1}'),
+                child: TextHeadlineSecondary(text: '주소 : ${event.address}'),
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child:
-                    TextHeadlineSecondary(text: '일시 : ${event.eventStartedAt}'),
+                child: TextHeadlineSecondary(text: '일시 : ${event.happenedAt}'),
               ),
               Align(
                 alignment: Alignment.centerLeft,
@@ -56,16 +56,31 @@ class EventDetailPage extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: TagWrapper(tags: [
-                      EventOptionButton(tag: "현장 사진 등록"),
-                      EventOptionButton(tag: "현장 사진 관리"),
+                      EventOptionButton(
+                        tag: "현장 사진 등록",
+                        event: event,
+                      ),
+                      EventOptionButton(
+                        tag: "현장 사진 관리",
+                        event: event,
+                      ),
                     ]),
                   ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TagWrapper(tags: [
-                      EventOptionButton(tag: "사건 수정"),
-                      EventOptionButton(tag: "참여자 수정"),
-                      EventOptionButton(tag: "사건 삭제")
+                      EventOptionButton(
+                        tag: "사건 수정",
+                        event: event,
+                      ),
+                      EventOptionButton(
+                        tag: "참여자 수정",
+                        event: event,
+                      ),
+                      EventOptionButton(
+                        tag: "사건 삭제",
+                        event: event,
+                      )
                     ]),
                   ),
                 ],

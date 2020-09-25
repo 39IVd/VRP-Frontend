@@ -38,7 +38,7 @@ class AddEventButton extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: RawMaterialButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.registerEvent),
+          onPressed: () => Navigator.pushNamed(context, Routes.createEvent),
           child: Text(
             '새 사건 등록',
             style: GoogleFonts.openSans(color: Colors.white, fontSize: 14),
@@ -74,12 +74,24 @@ class TagWrapper extends StatelessWidget {
 
 class EventOptionButton extends StatelessWidget {
   final String tag;
-  const EventOptionButton({Key key, this.tag}) : super(key: key);
+  final Event event;
+  const EventOptionButton({Key key, this.tag, this.event}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      onPressed: () {},
+      onPressed: () {
+        switch (tag) {
+          case "사건 수정":
+            Navigator.pushNamed(context, Routes.updateEvent, arguments: event);
+            break;
+          case "참여자 수정":
+            break;
+          case "사건 삭제":
+            break;
+          default:
+        }
+      },
       child: Text(
         tag,
         style: GoogleFonts.openSans(color: Colors.white, fontSize: 14),

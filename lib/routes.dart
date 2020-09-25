@@ -9,7 +9,8 @@ class Routes {
   static const String join = 'join';
   static const String demo = 'demo';
   static const String mypage = 'mypage';
-  static const String registerEvent = 'registerEvent';
+  static const String createEvent = 'createEvent';
+  static const String updateEvent = 'updateEvent';
 
   static Route<T> fadeThrough<T>(RouteSettings settings, WidgetBuilder page,
       {int duration = 300}) {

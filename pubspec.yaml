@@ -1,5 +1,5 @@
-name: minimal
-description: A minimalistic Flutter website template for blogs and portfolios.
+name: vrp-frontend
+description: VRP Website, Konkuk Univ. Graduation project.
 version: 1.0.3
 
 environment:

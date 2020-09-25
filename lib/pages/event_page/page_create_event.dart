@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:minimal/components/components.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class RegisterEventPage extends StatefulWidget {
-  RegisterEventPage({Key key, this.title}) : super(key: key);
-  final String title;
+class CreateEventPage extends StatefulWidget {
   @override
-  _RegisterEventState createState() => _RegisterEventState();
+  _CreateEventState createState() => _CreateEventState();
 }
 
-class _RegisterEventState extends State<RegisterEventPage> {
+class _CreateEventState extends State<CreateEventPage> {
   bool isChecked = false;
 
   @override

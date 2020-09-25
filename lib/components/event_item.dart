@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:minimal/routes.dart';
 import 'package:minimal/models/models.dart';
 import 'components.dart';
+import 'package:minimal/utils/utils.dart';
 
 class EventItem extends StatelessWidget {
   final Event event;
@@ -10,9 +11,10 @@ class EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print('width : ${MediaQuery.of(context).size.width}');
     return Container(
         padding: const EdgeInsets.all(20),
-        // width: MediaQuery.of(context).size.width / 0.2,
+        // width: MediaQuery.of(context).size.width * 0.2,
         child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -43,7 +45,7 @@ class EventItem extends StatelessWidget {
                   child: Container(
                     margin: marginBottom12,
                     child: Text(
-                      event.address1,
+                      event.address,
                       style: bodyTextStyle,
                     ),
                   ),
@@ -53,7 +55,7 @@ class EventItem extends StatelessWidget {
                   child: Container(
                     margin: marginBottom12,
                     child: Text(
-                      event.eventStartedAt,
+                      event.happenedAt,
                       style: bodyTextStyle,
                     ),
                   ),

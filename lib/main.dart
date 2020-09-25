@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minimal/pages/page_mypage.dart';
-import 'package:minimal/pages/page_regitster_event.dart';
+import 'package:minimal/pages/event_page/page_create_event.dart';
 import 'package:minimal/pages/pages.dart';
 import 'package:minimal/routes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -60,8 +60,10 @@ class _MyAppState extends State<MyApp> {
               return DemoPage();
             case Routes.mypage:
               return MyPage();
-            case Routes.registerEvent:
-              return RegisterEventPage();
+            case Routes.createEvent:
+              return CreateEventPage();
+            case Routes.updateEvent:
+              return UpdateEventPage();
             default:
               return null;
               break;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimal/components/components.dart';
 import 'package:minimal/components/navigation_bar.dart';
+import 'package:minimal/utils/utils.dart';
 
 class AboutPage extends StatelessWidget {
   @override
