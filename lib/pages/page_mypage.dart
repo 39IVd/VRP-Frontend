@@ -12,7 +12,7 @@ class MyPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 32),
               child: Column(
                 children: <Widget>[
-                  MenuBar(),
+                  NavigationBar(),
                   Align(
                     alignment: Alignment.center,
                     child: Container(

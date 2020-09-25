@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minimal/pages/page_mypage.dart';
+import 'package:minimal/pages/page_regitster_event.dart';
 import 'package:minimal/pages/pages.dart';
 import 'package:minimal/routes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -43,20 +44,24 @@ class _MyAppState extends State<MyApp> {
         return Routes.fadeThrough(settings, (context) {
           switch (settings.name) {
             case Routes.home:
-              return isLogin ? ListPage() : DemoPage();
+              return isLogin ? EventListPage() : DemoPage();
               break;
             case Routes.post:
-              return PostPage();
+              return EventDetailPage();
               break;
             case Routes.about:
               return AboutPage();
               break;
             case Routes.login:
               return LoginPage();
+            case Routes.join:
+              return JoinPage();
             case Routes.demo:
               return DemoPage();
             case Routes.mypage:
               return MyPage();
+            case Routes.registerEvent:
+              return RegisterEventPage();
             default:
               return null;
               break;

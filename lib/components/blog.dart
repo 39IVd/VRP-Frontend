@@ -7,6 +7,7 @@ import 'package:minimal/utils/text.dart';
 import 'package:minimal/utils/typography.dart';
 import 'package:minimal/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:minimal/models/models.dart';
 
 class ImageWrapper extends StatelessWidget {
   final String image;
@@ -29,9 +30,34 @@ class ImageWrapper extends StatelessWidget {
   }
 }
 
-class TagWrapper extends StatelessWidget {
-  final List<Tag> tags;
+class AddEventButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(left: 50),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: RawMaterialButton(
+          onPressed: () => Navigator.pushNamed(context, Routes.registerEvent),
+          child: Text(
+            '새 사건 등록',
+            style: GoogleFonts.openSans(color: Colors.white, fontSize: 14),
+          ),
+          fillColor: Color(0xFF242424),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          elevation: 0,
+          hoverElevation: 0,
+          hoverColor: Color(0xFFC7C7C7),
+          highlightElevation: 0,
+          focusElevation: 0,
+        ),
+      ),
+    );
+  }
+}
 
+class TagWrapper extends StatelessWidget {
+  final List<EventOptionButton> tags;
   const TagWrapper({Key key, this.tags}) : super(key: key);
 
   @override
@@ -46,10 +72,9 @@ class TagWrapper extends StatelessWidget {
   }
 }
 
-class Tag extends StatelessWidget {
+class EventOptionButton extends StatelessWidget {
   final String tag;
-
-  const Tag({Key key, this.tag}) : super(key: key);
+  const EventOptionButton({Key key, this.tag}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +95,11 @@ class Tag extends StatelessWidget {
   }
 }
 
-class ReadMoreButton extends StatelessWidget {
+class EventDetailButton extends StatelessWidget {
   final Function onPressed;
 
-  const ReadMoreButton({Key key, @required this.onPressed}) : super(key: key);
+  const EventDetailButton({Key key, @required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +116,7 @@ class ReadMoreButton extends StatelessWidget {
           borderSide: BorderSide(color: textPrimary, width: 2),
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            "READ MORE",
+            "자세히 보기",
             style: GoogleFonts.montserrat(
               textStyle: TextStyle(
                   fontSize: 14,
@@ -165,7 +191,7 @@ List<Widget> authorSection({String imageUrl, String name, String bio}) {
   ];
 }
 
-class PostNavigation extends StatelessWidget {
+class EventNavigation extends StatelessWidget {
   // TODO Get PostID from Global Routing Singleton.
   // Example: String currentPage = RouteController.of(context).currentPage;
   @override
@@ -180,13 +206,13 @@ class PostNavigation extends StatelessWidget {
               size: 25,
               color: textSecondary,
             ),
-            Text("PREVIOUS POST", style: buttonTextStyle),
+            Text("이전 사건", style: buttonTextStyle),
           ],
         ),
         Spacer(),
         Row(
           children: <Widget>[
-            Text("NEXT POST", style: buttonTextStyle),
+            Text("다음 사건", style: buttonTextStyle),
             Icon(
               Icons.keyboard_arrow_right,
               size: 25,
@@ -290,7 +316,7 @@ class ListItem extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Container(
             margin: marginBottom24,
-            child: ReadMoreButton(
+            child: EventDetailButton(
               onPressed: () => Navigator.pushNamed(context, Routes.post),
             ),
           ),

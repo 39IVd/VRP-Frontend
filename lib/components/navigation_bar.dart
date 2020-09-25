@@ -8,12 +8,12 @@ import 'package:minimal/utils/typography.dart';
 import 'package:minimal/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MenuBar extends StatefulWidget {
+class NavigationBar extends StatefulWidget {
   @override
-  _MenuBarState createState() => _MenuBarState();
+  _NavigationBarState createState() => _NavigationBarState();
 }
 
-class _MenuBarState extends State<MenuBar> {
+class _NavigationBarState extends State<NavigationBar> {
   bool isLogin = false;
   Widget loginMenubar() {
     return Wrap(
@@ -83,6 +83,16 @@ class _MenuBarState extends State<MenuBar> {
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
+        ),
+        FlatButton(
+          onPressed: () => Navigator.pushNamed(context, Routes.join),
+          child: Text(
+            "JOIN",
+            style: buttonTextStyle,
+          ),
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         )
       ],
     );
@@ -108,7 +118,7 @@ class _MenuBarState extends State<MenuBar> {
                     context, ModalRoute.withName(Navigator.defaultRouteName)),
                 child: Text("VR Crimescene Project",
                     style: GoogleFonts.montserrat(
-                        color: textPrimary,
+                        color: Colors.red[700],
                         fontSize: 30,
                         letterSpacing: 3,
                         fontWeight: FontWeight.w500)),

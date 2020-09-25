@@ -10,7 +10,7 @@ class DemoPage extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: <Widget>[
-              MenuBar(),
+              NavigationBar(),
               Align(
                 alignment: Alignment.center,
                 child: Container(
@@ -28,8 +28,8 @@ class DemoPage extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: TagWrapper(tags: [
-                  Tag(tag: "Share"),
-                  Tag(tag: "Details"),
+                  EventOptionButton(tag: "Share"),
+                  EventOptionButton(tag: "Details"),
                 ]),
               ),
               Footer(),

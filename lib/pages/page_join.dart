@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:minimal/components/components.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key key, this.title}) : super(key: key);
-  final String title;
+class JoinPage extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<LoginPage> {
+class _LoginState extends State<JoinPage> {
   bool isChecked = false;
 
   @override
@@ -33,24 +31,17 @@ class _LoginState extends State<LoginPage> {
       ),
     );
 
-    final loginButton = Container(
+    final joinButton = Container(
       width: MediaQuery.of(context).size.width / 2.5,
       child: RaisedButton(
         onPressed: () {
-          (() async {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            setState(() {
-              prefs.setBool('isLogin', true);
-            });
-            print("login");
-            print("isLogin : ${prefs.getBool('isLogin')}");
-          })();
+          // TODO: 회원 정보 등록
           Navigator.popUntil(
               context, ModalRoute.withName(Navigator.defaultRouteName));
         },
         padding: EdgeInsets.all(12),
         color: Colors.grey,
-        child: Text('로그인',
+        child: Text('회원가입',
             style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
@@ -126,7 +117,7 @@ class _LoginState extends State<LoginPage> {
                       ],
                     ),
                     SizedBox(height: 18.0),
-                    loginButton,
+                    joinButton,
                   ],
                 ),
               ),

@@ -6,8 +6,10 @@ class Routes {
   static const String post = "post";
   static const String about = "about";
   static const String login = 'login';
+  static const String join = 'join';
   static const String demo = 'demo';
   static const String mypage = 'mypage';
+  static const String registerEvent = 'registerEvent';
 
   static Route<T> fadeThrough<T>(RouteSettings settings, WidgetBuilder page,
       {int duration = 300}) {

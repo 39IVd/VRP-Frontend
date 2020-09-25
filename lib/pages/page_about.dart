@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minimal/components/components.dart';
-import 'package:minimal/components/menubar.dart';
+import 'package:minimal/components/navigation_bar.dart';
 
 class AboutPage extends StatelessWidget {
   @override
@@ -13,7 +13,7 @@ class AboutPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 32),
               child: Column(
                 children: <Widget>[
-                  MenuBar(),
+                  NavigationBar(),
                   Align(
                     alignment: Alignment.center,
                     child: Container(
