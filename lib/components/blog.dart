@@ -6,8 +6,8 @@ import 'package:vrp_frontend/utils/spacing.dart';
 import 'package:vrp_frontend/utils/text.dart';
 import 'package:vrp_frontend/utils/typography.dart';
 import 'package:vrp_frontend/routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vrp_frontend/models/models.dart';
+import 'dart:js' as js;
 
 class ImageWrapper extends StatelessWidget {
   final String image;
@@ -16,7 +16,6 @@ class ImageWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO Listen to inherited widget width updates.
     double width = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 24),
@@ -38,7 +37,11 @@ class AddEventButton extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: RawMaterialButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.createEvent),
+          onPressed: () {
+            js.context.callMethod(
+                'alertMessage', ['Flutter is calling upon JavaScript!']);
+            Navigator.pushNamed(context, Routes.createEvent);
+          },
           child: Text(
             '새 사건 등록',
             style: GoogleFonts.openSans(color: Colors.white, fontSize: 14),

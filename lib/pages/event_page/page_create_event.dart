@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vrp_frontend/components/components.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateEventPage extends StatefulWidget {
   @override
