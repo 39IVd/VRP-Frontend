@@ -4,6 +4,7 @@ export 'page_about.dart';
 export 'page_login.dart';
 export 'page_join.dart';
 export 'page_demo.dart';
+export 'page_vr_demo.dart';
 export 'page_mypage.dart';
 export 'event_page/page_create_event.dart';
 export 'event_page/page_update_event.dart';

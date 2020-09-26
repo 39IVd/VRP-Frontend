@@ -19,6 +19,16 @@ class _NavigationBarState extends State<NavigationBar> {
     return Wrap(
       children: <Widget>[
         FlatButton(
+          onPressed: () => Navigator.pushNamed(context, Routes.vrdemo),
+          child: Text(
+            "VR DEMO",
+            style: buttonTextStyle,
+          ),
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        FlatButton(
           onPressed: () => Navigator.pushNamed(context, Routes.demo),
           child: Text(
             "DEMO",
@@ -64,6 +74,16 @@ class _NavigationBarState extends State<NavigationBar> {
   Widget logoutMenubar() {
     return Wrap(
       children: <Widget>[
+        FlatButton(
+          onPressed: () => Navigator.pushNamed(context, Routes.vrdemo),
+          child: Text(
+            "VR DEMO",
+            style: buttonTextStyle,
+          ),
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
         FlatButton(
           onPressed: () => Navigator.pushNamed(context, Routes.about),
           child: Text(

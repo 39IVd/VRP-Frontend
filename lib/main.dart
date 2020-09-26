@@ -58,6 +58,8 @@ class _MyAppState extends State<MyApp> {
               return JoinPage();
             case Routes.demo:
               return DemoPage();
+            case Routes.vrdemo:
+              return VRDemoPage();
             case Routes.mypage:
               return MyPage();
             case Routes.createEvent:

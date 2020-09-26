@@ -8,6 +8,7 @@ class Routes {
   static const String login = 'login';
   static const String join = 'join';
   static const String demo = 'demo';
+  static const String vrdemo = 'vrdemo';
   static const String mypage = 'mypage';
   static const String createEvent = 'createEvent';
   static const String updateEvent = 'updateEvent';
