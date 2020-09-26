@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:minimal/utils/color.dart';
-import 'package:minimal/utils/spacing.dart';
-import 'package:minimal/utils/text.dart';
-import 'package:minimal/utils/typography.dart';
-import 'package:minimal/routes.dart';
+import 'package:vrp_frontend/utils/color.dart';
+import 'package:vrp_frontend/utils/spacing.dart';
+import 'package:vrp_frontend/utils/text.dart';
+import 'package:vrp_frontend/utils/typography.dart';
+import 'package:vrp_frontend/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NavigationBar extends StatefulWidget {

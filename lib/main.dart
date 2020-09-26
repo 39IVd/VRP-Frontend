@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:minimal/pages/page_mypage.dart';
-import 'package:minimal/pages/event_page/page_create_event.dart';
-import 'package:minimal/pages/pages.dart';
-import 'package:minimal/routes.dart';
+import 'package:vrp_frontend/pages/page_mypage.dart';
+import 'package:vrp_frontend/pages/event_page/page_create_event.dart';
+import 'package:vrp_frontend/pages/pages.dart';
+import 'package:vrp_frontend/routes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

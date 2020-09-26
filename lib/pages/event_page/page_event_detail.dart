@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minimal/components/components.dart';
-import 'package:minimal/models/models.dart';
-import 'package:minimal/utils/utils.dart';
+import 'package:vrp_frontend/components/components.dart';
+import 'package:vrp_frontend/models/models.dart';
+import 'package:vrp_frontend/utils/utils.dart';
 
 class EventDetailPage extends StatelessWidget {
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:minimal/utils/color.dart';
+import 'package:vrp_frontend/utils/color.dart';
 
 // Simple
 TextStyle headlineTextStyle = GoogleFonts.montserrat(

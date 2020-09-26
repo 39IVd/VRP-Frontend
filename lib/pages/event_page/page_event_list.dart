@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:minimal/components/components.dart';
-import 'package:minimal/models/models.dart';
+import 'package:vrp_frontend/components/components.dart';
+import 'package:vrp_frontend/models/models.dart';
 
 const String listItemTitleText = "A BETTER BLOG FOR WRITING";
 const String listItemPreviewText =

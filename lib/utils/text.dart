@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:minimal/utils/spacing.dart';
-import 'package:minimal/utils/typography.dart';
+import 'package:vrp_frontend/utils/spacing.dart';
+import 'package:vrp_frontend/utils/typography.dart';
 
 class TextBody extends StatelessWidget {
   final String text;
