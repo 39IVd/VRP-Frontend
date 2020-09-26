@@ -57,73 +57,42 @@ class _LoginState extends State<JoinPage> {
       onPressed: () {},
     );
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Container(
-                height: MediaQuery.of(context).size.height / 2,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.white,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height / 2,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.grey,
-              ),
-            ],
-          ),
-          Center(
-            child: Card(
-              elevation: 2.0,
-              child: Container(
-                padding: EdgeInsets.all(42),
-                width: MediaQuery.of(context).size.width / 2.5,
-                height: MediaQuery.of(context).size.height / 1.5,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 62.0),
-                    Center(
-                        child: Text(
-                      "VR Crimescene Project",
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                    SizedBox(height: 48.0),
-                    email,
-                    SizedBox(height: 8.0),
-                    password,
-                    SizedBox(height: 24.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Checkbox(
-                              value: isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  isChecked = value;
-                                });
-                              },
-                            ),
-                            Text("Remember Me")
-                          ],
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
+          children: [
+            NavigationBar(),
+            Center(
+              child: Card(
+                elevation: 2.0,
+                child: Container(
+                  padding: EdgeInsets.all(42),
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 62.0),
+                      Center(
+                          child: Text(
+                        "VR Crimescene Project",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
                         ),
-                        forgotLabel,
-                      ],
-                    ),
-                    SizedBox(height: 18.0),
-                    joinButton,
-                  ],
+                      )),
+                      SizedBox(height: 48.0),
+                      email,
+                      SizedBox(height: 8.0),
+                      password,
+                      SizedBox(height: 24.0),
+                      joinButton,
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
