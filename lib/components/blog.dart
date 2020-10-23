@@ -39,7 +39,7 @@ class AddEventButton extends StatelessWidget {
         child: RawMaterialButton(
           onPressed: () {
             js.context.callMethod(
-                'alertMessage', ['Flutter is calling upon JavaScript!']);
+                'alertMessage');
             Navigator.pushNamed(context, Routes.createEvent);
           },
           child: Text(

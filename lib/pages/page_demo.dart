@@ -5,6 +5,13 @@ import 'package:vrp_frontend/utils/utils.dart';
 class DemoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //   body: Center(
+    //     child: Panorama(
+    //       child: Image.asset('assets/images/panorama.jpg'),
+    //     ),
+    //   ),
+    // );
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -22,6 +29,9 @@ class DemoPage extends StatelessWidget {
                   ),
                 ),
               ),
+              // Panorama(
+              //   child: Image.asset('assets/scene.jpg'),
+              // ),
               ImageWrapper(
                 image: "assets/images/mugs_side_bw_w1080.jpg",
               ),

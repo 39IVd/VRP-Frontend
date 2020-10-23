@@ -26,10 +26,11 @@ class EventItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Image.asset(
-                  'assets/images/iphone_cactus_tea_overhead_bw_w1080.jpg',
-                  height: 200,
+                  'assets/images/crimescene.jpg',
+                  height: 220,
                   fit: BoxFit.fitWidth,
                 ),
+                Container(height: 20),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(

@@ -20,7 +20,7 @@ class EventDetailPage extends StatelessWidget {
             children: <Widget>[
               NavigationBar(),
               Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: Container(
                   margin: marginBottom12,
                   child: Text(
@@ -29,15 +29,16 @@ class EventDetailPage extends StatelessWidget {
                   ),
                 ),
               ),
+              Container(height: 30),
               Image.asset(
-                'assets/images/iphone_cactus_tea_overhead_bw_w1080.jpg',
+                'assets/images/crimescene.jpg',
                 height: 400,
                 fit: BoxFit.fitWidth,
               ),
               // ImageWrapper(
               //   image: "assets/images/mugs_side_bw_w1080.jpg",
               // ),
-
+              Container(height: 50),
               Align(
                 alignment: Alignment.centerLeft,
                 child: TextHeadlineSecondary(text: '주소 : ${event.address}'),
