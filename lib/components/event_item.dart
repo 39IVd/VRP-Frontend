@@ -46,17 +46,7 @@ class EventItem extends StatelessWidget {
                   child: Container(
                     margin: marginBottom12,
                     child: Text(
-                      event.address,
-                      style: bodyTextStyle,
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    margin: marginBottom12,
-                    child: Text(
-                      event.happenedAt,
+                      event.eventStartedAt,
                       style: bodyTextStyle,
                     ),
                   ),
@@ -75,8 +65,10 @@ class EventItem extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Container(
                     margin: marginBottom24,
+                    // 자세히 보기
                     child: EventDetailButton(
-                      onPressed: () => Navigator.pushNamed(context, Routes.post,
+                      onPressed: () => Navigator.pushNamed(
+                          context, Routes.eventDetail,
                           arguments: event),
                     ),
                   ),

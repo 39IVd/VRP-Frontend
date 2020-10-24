@@ -1,27 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:vrp_frontend/components/components.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../utils/utils.dart';
+import '../models/models.dart';
 
 class JoinPage extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _JoinState createState() => _JoinState();
 }
 
-class _LoginState extends State<JoinPage> {
-  bool isChecked = false;
+class _JoinState extends State<JoinPage> {
+  String _email = '', password = '';
+
+  Future<User> postSignUp(
+      String email, String password, String userName) async {
+    final http.Response response = await http.post(
+      'https://jsonplaceholder.typicode.com/albums',
+      headers: <String, String>{
+        'Authorization': authorization,
+      },
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'password': password,
+        'userName': userName
+      }),
+    );
+    Map<String, dynamic> json = jsonDecode(response.body);
+    String message = json['message'];
+    if (response.statusCode == 201) {
+      String id = json['data']['userId'];
+      return User(id: id, email: email, password: password, userName: userName);
+    } else if (response.statusCode == 400) {
+      // 입력값 실패 or 중복된 이메일
+      // TODO:
+      print(message);
+      throw Exception(message);
+    } else {
+      throw Exception('왜인지 모르겠지만 실패함');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final email = TextFormField(
+    final emailTextForm = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
         hintText: 'Email',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
       ),
+      onChanged: (String str) {
+        setState(() {
+          _email = str.trim();
+        });
+      },
     );
 
-    final password = TextFormField(
+    final passwordTextForm = TextFormField(
       autofocus: false,
       initialValue: '',
       obscureText: true,
@@ -29,6 +66,11 @@ class _LoginState extends State<JoinPage> {
         hintText: 'Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
       ),
+      onChanged: (String str) {
+        setState(() {
+          password = str.trim();
+        });
+      },
     );
 
     final joinButton = Container(
@@ -36,8 +78,14 @@ class _LoginState extends State<JoinPage> {
       child: RaisedButton(
         onPressed: () {
           // TODO: 회원 정보 등록
-          Navigator.popUntil(
-              context, ModalRoute.withName(Navigator.defaultRouteName));
+          if (!checkEmailValid(_email)) {
+            showFlushBar(context, "이메일이 형식에 맞지 않습니다.");
+          } else if (password == '') {
+            showFlushBar(context, "올바른 비밀번호를 입력해주세요.");
+          } else {
+            Navigator.popUntil(
+                context, ModalRoute.withName(Navigator.defaultRouteName));
+          }
         },
         padding: EdgeInsets.all(12),
         color: Colors.grey,
@@ -49,13 +97,6 @@ class _LoginState extends State<JoinPage> {
       ),
     );
 
-    final forgotLabel = FlatButton(
-      child: Text(
-        'Forgot password?',
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () {},
-    );
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 32),
@@ -81,9 +122,9 @@ class _LoginState extends State<JoinPage> {
                         ),
                       )),
                       SizedBox(height: 48.0),
-                      email,
+                      emailTextForm,
                       SizedBox(height: 8.0),
-                      password,
+                      passwordTextForm,
                       SizedBox(height: 24.0),
                       joinButton,
                     ],

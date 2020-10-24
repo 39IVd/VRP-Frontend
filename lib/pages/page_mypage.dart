@@ -1,8 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:vrp_frontend/components/components.dart';
 import 'package:vrp_frontend/utils/utils.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../utils/keys.dart';
+import '../models/models.dart';
 
-class MyPage extends StatelessWidget {
+class MyPage extends StatefulWidget {
+  @override
+  _MyPageState createState() => _MyPageState();
+}
+
+class _MyPageState extends State<MyPage> {
+  String email = '', userName = '';
+  String createdAt = '';
+  Future<User> getMyInfo() async {
+    final http.Response response = await http.get(
+        // TODO:
+        'https://jsonplaceholder.typicode.com/albums/1');
+    Map<String, dynamic> json = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      String email = json['data']['email'];
+      String userName = json['data']['userName'];
+      String id = json['data']['userId'];
+      return User(id: id, email: email, userName: userName);
+    } else if (response.statusCode == 401) {
+      // 허가되지 않은 유저
+      // TODO:
+      String message = json['message'];
+      print(message);
+      throw Exception(message);
+    } else if (response.statusCode == 400) {
+      // 입력값 실패 / 없는 유저
+      // TODO:
+      String message = json['message'];
+      print(message);
+      throw Exception(message);
+    } else {
+      throw Exception('왜인지 모르겠지만 실패함');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,46 +64,19 @@ class MyPage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Container(
                       margin: marginBottom24,
-                      child: Text("Text styles for pages and posts.",
-                          style: subtitleTextStyle),
-                    ),
-                  ),
-                  divider,
-                  Container(
-                    margin: marginBottom40,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      margin: marginBottom12,
-                      child: Text("Basic Styles",
+                      child: Text("My Information",
                           style: headlineSecondaryTextStyle),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      margin: marginBottom24,
-                      child: Text("Simple to remember and use",
-                          style: subtitleTextStyle),
                     ),
                   ),
                   dividerSmall,
                   Container(
-                    margin: marginBottom24,
+                    margin: EdgeInsets.only(bottom: 50),
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
                       margin: marginBottom24,
-                      child: Text("Headline", style: headlineTextStyle),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      margin: marginBottom24,
-                      child: Text("Headline Secondary",
+                      child: Text("Name : $userName",
                           style: headlineSecondaryTextStyle),
                     ),
                   ),
@@ -72,16 +84,16 @@ class MyPage extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Container(
                       margin: marginBottom24,
-                      child: Text("Subtitle", style: subtitleTextStyle),
+                      child: Text("Email : $email",
+                          style: headlineSecondaryTextStyle),
                     ),
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
-                      margin: marginBottom40,
-                      child: Text(
-                          "Body text is the default text style. Use this text style for website content and paragraphs. This text is chosen to be easy and comfortable to read. As the default text style for large blocks of text, particular attention is placed on the choice of font. Some fonts are more comfortable to read than others.",
-                          style: bodyTextStyle),
+                      margin: marginBottom24,
+                      child: Text("Join Date : $createdAt",
+                          style: headlineSecondaryTextStyle),
                     ),
                   ),
                   divider,

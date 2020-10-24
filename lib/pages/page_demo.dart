@@ -1,17 +1,38 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vrp_frontend/components/components.dart';
 import 'package:vrp_frontend/utils/utils.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/html_parser.dart';
+import 'package:flutter_html/style.dart';
+import 'dart:convert';
+import 'dart:js' as js;
+import 'dart:html' as html;
+import '../utils/UiFake.dart' if (dart.library.html) 'dart:ui' as ui;
 
-class DemoPage extends StatelessWidget {
+class DemoPage extends StatefulWidget {
+  @override
+  _DemoPageState createState() => _DemoPageState();
+}
+
+class _DemoPageState extends State<DemoPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   body: Center(
-    //     child: Panorama(
-    //       child: Image.asset('assets/images/panorama.jpg'),
-    //     ),
-    //   ),
-    // );
+      String viewID = "your-view-id";
+       ui.platformViewRegistry.registerViewFactory(
+        viewID,
+            (int id) => html.IFrameElement()
+          ..width = MediaQuery.of(context).size.width.toString()
+          ..height = MediaQuery.of(context).size.height.toString()
+          ..src = '../../../assets/index.html'
+          ..style.border = 'none');
+    
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -29,19 +50,11 @@ class DemoPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // Panorama(
-              //   child: Image.asset('assets/scene.jpg'),
-              // ),
-              ImageWrapper(
-                image: "assets/images/mugs_side_bw_w1080.jpg",
-              ),
-              TextBlockquote(text: "This is VR Crimescnene Demo Page."),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TagWrapper(tags: [
-                  EventOptionButton(tag: "Share"),
-                  EventOptionButton(tag: "Details"),
-                ]),
+              SizedBox(
+                height: 1000,
+                child: HtmlElementView(
+                  viewType: viewID,
+                ),
               ),
               Footer(),
             ],
@@ -52,3 +65,4 @@ class DemoPage extends StatelessWidget {
     );
   }
 }
+

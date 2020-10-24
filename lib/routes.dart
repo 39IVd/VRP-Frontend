@@ -3,15 +3,18 @@ import 'package:flutter/widgets.dart';
 
 class Routes {
   static const String home = "/";
-  static const String post = "post";
   static const String about = "about";
   static const String login = 'login';
   static const String join = 'join';
   static const String demo = 'demo';
-  static const String vrdemo = 'vrdemo';
   static const String mypage = 'mypage';
+  static const String eventList = 'eventList';
+  static const String eventDetail = "eventDetail";
   static const String createEvent = 'createEvent';
   static const String updateEvent = 'updateEvent';
+  static const String homePage = 'homePage';
+  static const String createScene = 'createScene';
+  static const String updateScene = 'updateScene';
 
   static Route<T> fadeThrough<T>(RouteSettings settings, WidgetBuilder page,
       {int duration = 300}) {

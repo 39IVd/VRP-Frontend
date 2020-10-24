@@ -19,9 +19,19 @@ class _NavigationBarState extends State<NavigationBar> {
     return Wrap(
       children: <Widget>[
         FlatButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.vrdemo),
+          onPressed: () => Navigator.pushNamed(context, Routes.homePage),
           child: Text(
-            "VR DEMO",
+            "HOME",
+            style: buttonTextStyle,
+          ),
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        FlatButton(
+          onPressed: () => Navigator.pushNamed(context, Routes.eventList),
+          child: Text(
+            "EVENTS",
             style: buttonTextStyle,
           ),
           splashColor: Colors.transparent,
@@ -75,9 +85,19 @@ class _NavigationBarState extends State<NavigationBar> {
     return Wrap(
       children: <Widget>[
         FlatButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.vrdemo),
+          onPressed: () => Navigator.pushNamed(context, Routes.homePage),
           child: Text(
-            "VR DEMO",
+            "HOME",
+            style: buttonTextStyle,
+          ),
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        FlatButton(
+          onPressed: () => Navigator.pushNamed(context, Routes.demo),
+          child: Text(
+            "DEMO",
             style: buttonTextStyle,
           ),
           splashColor: Colors.transparent,

@@ -5,7 +5,8 @@ var viewer = new Marzipano.Viewer(document.getElementById("pano"));
 // 이미지 로드
 var source = Marzipano.ImageUrlSource.fromString(
   // "https://i.ibb.co/Y3mbBDk/IMG-2573.jpg"
-  "https://i.ibb.co/hdB6Jc7/scene.jpg"
+  // "https://i.ibb.co/hdB6Jc7/scene.jpg"
+  "../../assets/img/scene.jpg"
 );
 
 // Geometry 설정

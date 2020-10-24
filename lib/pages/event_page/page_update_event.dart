@@ -25,29 +25,16 @@ class _UpdateEventPageState extends State<UpdateEventPage> {
         });
       },
     );
-    final happenedAtForm = TextFormField(
+    final eventStartedAtForm = TextFormField(
       keyboardType: TextInputType.text,
       autofocus: false,
       decoration: InputDecoration(
-        hintText: event.happenedAt,
+        hintText: event.eventStartedAt,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
       ),
       onChanged: (String str) {
         setState(() {
           _happenedAt = str.trim();
-        });
-      },
-    );
-    final addressForm = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: event.address,
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-      ),
-      onChanged: (String str) {
-        setState(() {
-          _address = str.trim();
         });
       },
     );
@@ -69,11 +56,11 @@ class _UpdateEventPageState extends State<UpdateEventPage> {
       width: MediaQuery.of(context).size.width / 2.5,
       child: RaisedButton(
         onPressed: () {
-          event.updateEvent(
-              _eventName ?? event.eventName,
-              _happenedAt ?? event.happenedAt,
-              _address ?? event.address,
-              _eventStatus ?? event.eventStatus);
+          // event.updateEvent(
+          //     _eventName ?? event.eventName,
+          //     _happenedAt ?? event.eventStartedAt,
+          //     _address ?? event.address,
+          //     _eventStatus ?? event.eventStatus);
           Navigator.pop(context);
         },
         padding: EdgeInsets.all(12),
@@ -113,9 +100,7 @@ class _UpdateEventPageState extends State<UpdateEventPage> {
                         SizedBox(height: 48.0),
                         eventNameForm,
                         SizedBox(height: 8.0),
-                        happenedAtForm,
-                        SizedBox(height: 8.0),
-                        addressForm,
+                        eventStartedAtForm,
                         SizedBox(height: 8.0),
                         eventStatusForm,
                         SizedBox(height: 24.0),

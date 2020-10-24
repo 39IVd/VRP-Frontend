@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vrp_frontend/components/components.dart';
 import 'package:vrp_frontend/models/models.dart';
-
-const String listItemTitleText = "A BETTER BLOG FOR WRITING";
-const String listItemPreviewText =
-    "Sed elementum tempus egestas sed sed risus. Mauris in aliquam sem fringilla ut morbi tincidunt. Placerat vestibulum lectus mauris ultrices eros. Et leo duis ut diam. Auctor neque vitae tempus […]";
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../../models/models.dart';
+import 'package:vrp_frontend/dummylist.dart';
 
 class EventListPage extends StatefulWidget {
   @override
@@ -15,6 +16,35 @@ class EventListPage extends StatefulWidget {
 class _EventListPageState extends State<EventListPage> {
   bool isLogin = false;
   List<Event> eventList = List();
+  Future<List<Event>> getMyEvents() async {
+    List<Event> eventList = List();
+    final http.Response response = await http.get(
+        // TODO:
+        'https://jsonplaceholder.typicode.com/albums/1');
+    Map<String, dynamic> json = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      // Map<String, dynamic> events = json['data']['events'];
+      List events = json['data']['events'];
+      // TODO:
+      // for (var e in events) {
+      //   String eventId = events['eventId'];
+      //   String createdAt = events['createdAt'];
+      //   String eventStartedAt = events['eventStartedAt'];
+      //   String eventStatus = events['eventStatus'];
+      //   String eventName = events['eventName'];
+      //   String teamLeader = events['teamLeader'];
+      // }
+      return eventList;
+    } else if (response.statusCode == 401) {
+      // 허가되지 않은 유저
+      // TODO:
+      String message = json['message'];
+      print(message);
+      throw Exception(message);
+    } else {
+      throw Exception('왜인지 모르겠지만 실패함');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
