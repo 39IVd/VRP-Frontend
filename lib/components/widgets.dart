@@ -132,17 +132,48 @@ class EventDetailButton extends StatelessWidget {
         child: OutlineButton(
           onPressed: onPressed,
           highlightedBorderColor: textPrimary,
-          hoverColor: textPrimary,
+          hoverColor: Colors.white,
           borderSide: BorderSide(color: textPrimary, width: 2),
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             "자세히 보기",
-            style: GoogleFonts.montserrat(
-              textStyle: TextStyle(
-                  fontSize: 14,
-                  color: hover ? Colors.white : textPrimary,
-                  letterSpacing: 1),
-            ),
+            style: TextStyle(
+                fontSize: 14,
+                color: hover ? Colors.white : textPrimary,
+                letterSpacing: 1),
+          ),
+        ),
+      );
+    });
+  }
+}
+
+class SceneDetailButton extends StatelessWidget {
+  final Function onPressed;
+
+  const SceneDetailButton({Key key, @required this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    bool hover = false;
+    return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+      return MouseRegion(
+        onHover: (event) => setState(() => hover = true),
+        onExit: (event) => setState(() => hover = false),
+        child: OutlineButton(
+          onPressed: onPressed,
+          highlightedBorderColor: textPrimary,
+          hoverColor: Colors.white,
+          borderSide: BorderSide(color: textPrimary, width: 2),
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Text(
+            "자세히 보기",
+            style: TextStyle(
+                fontSize: 14,
+                color: hover ? Colors.white : textPrimary,
+                letterSpacing: 1),
           ),
         ),
       );

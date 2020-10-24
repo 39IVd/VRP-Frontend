@@ -15,6 +15,7 @@ class Routes {
   static const String homePage = 'homePage';
   static const String createScene = 'createScene';
   static const String updateScene = 'updateScene';
+  static const String sceneDetail = 'sceneDetail';
 
   static Route<T> fadeThrough<T>(RouteSettings settings, WidgetBuilder page,
       {int duration = 300}) {

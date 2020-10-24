@@ -10,3 +10,4 @@ export 'event_page/page_update_event.dart';
 export 'page_home.dart';
 export 'scene_page/page_create_scene.dart';
 export 'scene_page/page_update_scene.dart';
+export 'scene_page/page_scene_detail.dart';

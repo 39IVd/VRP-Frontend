@@ -12,6 +12,7 @@ import 'package:vrp_frontend/dummylist.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:horizontal_card_pager/horizontal_card_pager.dart';
 import 'package:horizontal_card_pager/card_item.dart';
+import 'package:vrp_frontend/routes.dart';
 
 class EventDetailPage extends StatefulWidget {
   @override
@@ -19,7 +20,21 @@ class EventDetailPage extends StatefulWidget {
 }
 
 class _EventDetailPageState extends State<EventDetailPage> {
+  int currentSceneIndex = 0;
+  int nextSceneIndex = 0;
+
   List<Scene> sceneList = List();
+  List<String> sceneNameList = List(), sceneCreatedAtList = List();
+  Scene _selectedScene;
+  @override
+  void initState() {
+    sceneList = dummySceneList;
+    sceneNameList = sceneList.map((Scene e) => e.sceneName).toList();
+    sceneCreatedAtList = sceneList.map((e) => e.createdAt).toList();
+    _selectedScene = sceneList[currentSceneIndex];
+    super.initState();
+  }
+
   Future getTeamLeader() async {
     // TODO: 사건의 teamLeader id로 팀장 이름 찾기
     final http.Response response = await http.post(
@@ -102,15 +117,24 @@ class _EventDetailPageState extends State<EventDetailPage> {
     event.teamMembers.map((e) => e.userName).toList().forEach((element) {
       teamMemberName += element + '  ';
     });
-    sceneList = dummySceneList;
-
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 32),
           child: Column(
-            children: <Widget>[
+            children: [
               NavigationBar(),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: marginBottom12,
+                  child: Text(
+                    "Event Detail",
+                    style: headlineTextStyle,
+                  ),
+                ),
+              ),
               Align(
                 alignment: Alignment.center,
                 child: Container(
@@ -122,33 +146,67 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 ),
               ),
               Container(height: 30),
-              // Image.asset(
-              //   'assets/images/crimescene.jpg',
-              //   height: 400,
-              //   fit: BoxFit.fitWidth,
-              // ),
-              // Swiper(
-              //   itemBuilder: (BuildContext context, int index) {
-              //     return Image.asset(
-              //       'assets/images/crimescene.jpg',
-              //       height: 400,
-              //       fit: BoxFit.fitWidth,
-              //     );
-              //   },
-              //   itemCount: 10,
-              //   viewportFraction: 0.8,
-              //   scale: 0.9,
-              // ),
-              Container(height: 50),
               Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: TextHeadlineSecondary(
                     text: '사건 발생일 : ${event.eventStartedAt}'),
               ),
               Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: TextHeadlineSecondary(text: '상태 : ${event.eventStatus}'),
               ),
+              Container(height: 30),
+              dividerSmall,
+              Container(height: 30),
+              Align(
+                alignment: Alignment.center,
+                child: TextHeadlineSecondary(text: '< 현장 리스트 >'),
+              ),
+              sceneList.isEmpty
+                  ? Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        child: Text(
+                          '등록된 현장이 없습니다.',
+                          style: headlineTextStyle,
+                        ),
+                      ),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        HorizontalCardPager(
+                          items: getSkinImageItems(sceneList.length),
+                          onSelectedItem: (page) {
+                            print(page);
+                          },
+                          initialPage: currentSceneIndex,
+                          onPageChanged: (page) {
+                            setState(() {
+                              if ((page - currentSceneIndex.toDouble()).abs() >=
+                                  1) {
+                                currentSceneIndex = nextSceneIndex;
+                              } else if (page > currentSceneIndex) {
+                                nextSceneIndex = currentSceneIndex + 1;
+                              } else if (page < currentSceneIndex) {
+                                nextSceneIndex = currentSceneIndex - 1;
+                              }
+                              _selectedScene = sceneList[currentSceneIndex];
+                            });
+                          },
+                        ),
+                        TextHeadlineSecondary(
+                            text: '현장명 : ${sceneNameList[currentSceneIndex]}'),
+                        TextBody(
+                            text:
+                                '등록일 : ${sceneCreatedAtList[currentSceneIndex]}'),
+                        SceneDetailButton(
+                          onPressed: () => Navigator.pushNamed(
+                              context, Routes.sceneDetail,
+                              arguments: _selectedScene),
+                        ),
+                      ],
+                    ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -201,7 +259,19 @@ class _EventDetailPageState extends State<EventDetailPage> {
           ),
         ),
       ),
-      backgroundColor: Colors.white,
     );
+  }
+
+  List<CardItem> getSkinImageItems(int length) {
+    List<CardItem> items = [];
+    for (int i = 0; i < length; i++) {
+      items.add(ImageCarditem(
+        image: Image.asset(
+          'images/scenes/${i}.jpg',
+          fit: BoxFit.cover,
+        ),
+      ));
+    }
+    return items;
   }
 }

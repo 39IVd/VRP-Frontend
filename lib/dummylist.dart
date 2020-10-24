@@ -87,10 +87,18 @@ List<Scene> dummySceneList = [
       fileId: '1'),
   Scene(
       sceneId: 2,
-      sceneName: '피해자의 집',
+      sceneName: '현관',
       address1: '서울특별시 광진구 자양동',
       address2: '미래아파트 101동 202호',
       zip: '05023',
       createdAt: '20200202',
       fileId: '2'),
+  Scene(
+      sceneId: 3,
+      sceneName: '아파트 입구',
+      address1: '서울특별시 광진구 자양동',
+      address2: '미래아파트 101동 202호',
+      zip: '05023',
+      createdAt: '20200202',
+      fileId: '3'),
 ];

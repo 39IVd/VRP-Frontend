@@ -70,6 +70,8 @@ class _MyAppState extends State<MyApp> {
               return CreateScenePage();
             case Routes.updateScene:
               return UpdateScenePage();
+            case Routes.sceneDetail:
+              return SceneDetailPage();
             default:
               return null;
           }
