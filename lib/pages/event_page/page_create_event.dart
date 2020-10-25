@@ -14,6 +14,7 @@ class CreateEventPage extends StatefulWidget {
 class _CreateEventState extends State<CreateEventPage> {
   bool isChecked = false;
   String _eventName = '', _eventStartedAt = '', _eventStatus = '';
+
   Future<User> registerEvent(
       String eventName, String eventStartedAt, String eventStatus) async {
     final http.Response response = await http.post(

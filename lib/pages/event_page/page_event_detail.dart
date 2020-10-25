@@ -22,10 +22,10 @@ class EventDetailPage extends StatefulWidget {
 class _EventDetailPageState extends State<EventDetailPage> {
   int currentSceneIndex = 0;
   int nextSceneIndex = 0;
-
   List<Scene> sceneList = List();
   List<String> sceneNameList = List(), sceneCreatedAtList = List();
   Scene _selectedScene;
+
   @override
   void initState() {
     sceneList = dummySceneList;
@@ -145,7 +145,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   ),
                 ),
               ),
-              Container(height: 30),
               Align(
                 alignment: Alignment.center,
                 child: TextHeadlineSecondary(
@@ -155,9 +154,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 alignment: Alignment.center,
                 child: TextHeadlineSecondary(text: '상태 : ${event.eventStatus}'),
               ),
-              Container(height: 30),
+              Container(height: 10),
               dividerSmall,
-              Container(height: 30),
+              Container(height: 20),
               Align(
                 alignment: Alignment.center,
                 child: TextHeadlineSecondary(text: '< 현장 리스트 >'),
@@ -176,7 +175,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         HorizontalCardPager(
-                          items: getSkinImageItems(sceneList.length),
+                          items: getSceneImageItems(sceneList),
                           onSelectedItem: (page) {
                             print(page);
                           },
@@ -201,6 +200,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             text:
                                 '등록일 : ${sceneCreatedAtList[currentSceneIndex]}'),
                         SceneDetailButton(
+                          // 자세히 보기
                           onPressed: () => Navigator.pushNamed(
                               context, Routes.sceneDetail,
                               arguments: _selectedScene),
@@ -214,11 +214,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     alignment: Alignment.centerLeft,
                     child: TagWrapper(tags: [
                       EventOptionButton(
-                        tag: "현장 등록",
-                        event: event,
-                      ),
-                      EventOptionButton(
-                        tag: "현장 수정",
+                        tag: "새 현장 등록",
                         event: event,
                       ),
                     ]),
@@ -262,12 +258,13 @@ class _EventDetailPageState extends State<EventDetailPage> {
     );
   }
 
-  List<CardItem> getSkinImageItems(int length) {
+  List<CardItem> getSceneImageItems(List<Scene> sceneList) {
     List<CardItem> items = [];
-    for (int i = 0; i < length; i++) {
+    for (int i = 0; i < sceneList.length; i++) {
+      String fileId = sceneList[i].fileId;
       items.add(ImageCarditem(
         image: Image.asset(
-          'images/scenes/${i}.jpg',
+          'images/scenes/${fileId}.jpg',
           fit: BoxFit.cover,
         ),
       ));

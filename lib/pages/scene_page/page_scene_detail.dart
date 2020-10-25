@@ -12,6 +12,9 @@ class SceneDetailPage extends StatefulWidget {
 }
 
 class _SceneDetailPageState extends State<SceneDetailPage> {
+  Future getSceneDetail() async {
+    // final http.Response response = await http.get('', )
+  }
   @override
   Widget build(BuildContext context) {
     final Scene scene = ModalRoute.of(context).settings.arguments;
@@ -43,8 +46,17 @@ class _SceneDetailPageState extends State<SceneDetailPage> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 700,
+                child: Image.asset(
+                  'images/scenes/${scene.fileId}.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
               Container(height: 30),
-              dividerSmall,
+              TextHeadlineSecondary(text: '주소 1 : ${scene.address1}'),
+              TextHeadlineSecondary(text: '주소 2 : ${scene.address2}'),
+              TextBody(text: '등록일 : ${scene.createdAt}'),
               Container(height: 30),
               divider,
               Footer(),
