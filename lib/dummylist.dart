@@ -9,8 +9,8 @@ List<User> dummyUserList = [
 List<Event> dummyEventList = [
   Event(
     eventId: 1,
-    eventName: '화양동사건1',
-    eventStartedAt: '20200202',
+    eventName: '화양동 강도사건',
+    eventStartedAt: '20201005',
     eventStatus: '기소완료',
     createdAt: '20200101',
     teamLeader: 1,
@@ -23,9 +23,9 @@ List<Event> dummyEventList = [
   ),
   Event(
     eventId: 2,
-    eventName: '화양동사건2',
-    eventStartedAt: '20200202',
-    eventStatus: '기소완료',
+    eventName: '구의동 실종사건',
+    eventStartedAt: '20200823',
+    eventStatus: '수사중',
     createdAt: '20200101',
     teamLeader: 1,
     teamMembers: [
@@ -37,9 +37,9 @@ List<Event> dummyEventList = [
   ),
   Event(
     eventId: 3,
-    eventName: '화양동사건3',
-    eventStartedAt: '20200202',
-    eventStatus: '기소완료',
+    eventName: '서대문구 연쇄살인',
+    eventStartedAt: '20200512',
+    eventStatus: '수사중',
     createdAt: '20200101',
     teamLeader: 1,
     teamMembers: [
@@ -51,9 +51,9 @@ List<Event> dummyEventList = [
   ),
   Event(
     eventId: 4,
-    eventName: '화양동사건4',
-    eventStartedAt: '20200202',
-    eventStatus: '기소완료',
+    eventName: '중랑구 살인사건',
+    eventStartedAt: '20200103',
+    eventStatus: '현장감식 완료',
     createdAt: '20200101',
     teamLeader: 1,
     teamMembers: [

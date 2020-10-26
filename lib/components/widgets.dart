@@ -85,7 +85,7 @@ class EventOptionButton extends StatelessWidget {
     return RawMaterialButton(
       onPressed: () {
         switch (tag) {
-          case "현장 등록":
+          case "새 현장 등록":
             Navigator.pushNamed(context, Routes.createScene, arguments: event);
             break;
           case "현장 수정":
