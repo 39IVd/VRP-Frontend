@@ -14,21 +14,12 @@ class JoinPage extends StatefulWidget {
 class _JoinState extends State<JoinPage> {
   String _email = '', _password = '', _userName = '';
   User user;
-  Future<bool> postSignUp(
-      String email, String password, String userName) async {
+  Future<bool> postSignUp(BuildContext context, String email, String password,
+      String userName) async {
     final http.Response response = await http.post(
       'http://localhost:8082/users/signup',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=utf-8',
-        "Access-Control-Allow-Origin": "*",
-        // "Access-Control-Allow-Credentials":
-        //     true, // Required for cookies, authorization headers with HTTPS
-        'Access-Control-Allow-Headers':
-            "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive'
       },
       body: jsonEncode(<String, String>{
         'email': email,
@@ -39,19 +30,17 @@ class _JoinState extends State<JoinPage> {
     Map<String, dynamic> json = jsonDecode(response.body);
     String message = json['message'];
     if (response.statusCode == 201) {
-      String id = json['data']['userId'];
+      int id = json['data']['userId'];
       print("id : $id");
       user = User(id: id, email: email, password: password, userName: userName);
       return true;
     } else if (response.statusCode == 400) {
       // 입력값 실패 or 중복된 이메일
       // TODO:
-      print(message);
-      // throw Exception(message);
+      showFlushBar(context, message);
       return false;
     } else {
       print(message);
-      // throw Exception('왜인지 모르겠지만 실패함');
       return false;
     }
   }
@@ -110,10 +99,13 @@ class _JoinState extends State<JoinPage> {
           } else if (_password == '') {
             showFlushBar(context, "올바른 비밀번호를 입력해주세요.");
           } else {
-            await postSignUp(_email, _password, _userName);
-            showFlushBar(context, "회원가입이 완료되었습니다.");
-            Navigator.popUntil(
-                context, ModalRoute.withName(Navigator.defaultRouteName));
+            bool valid =
+                await postSignUp(context, _email, _password, _userName);
+            if (valid) {
+              Navigator.popUntil(
+                  context, ModalRoute.withName(Navigator.defaultRouteName));
+              showFlushBar(context, "회원가입이 완료되었습니다.");
+            }
           }
         },
         padding: EdgeInsets.all(12),

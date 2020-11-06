@@ -1,10 +1,10 @@
 import 'models/models.dart';
 
 List<User> dummyUserList = [
-  User(id: '1', email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
-  User(id: '2', email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
-  User(id: '3', email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
-  User(id: '4', email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
+  User(id: 1, email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
+  User(id: 1, email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
+  User(id: 1, email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
+  User(id: 1, email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
 ];
 List<Event> dummyEventList = [
   Event(
@@ -15,10 +15,10 @@ List<Event> dummyEventList = [
     createdAt: '20200101',
     teamLeader: 1,
     teamMembers: [
-      User(id: '1', email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
-      User(id: '2', email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
-      User(id: '3', email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
-      User(id: '4', email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
+      User(id: 1, email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
+      User(id: 1, email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
+      User(id: 1, email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
+      User(id: 1, email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
     ],
   ),
   Event(
@@ -29,10 +29,10 @@ List<Event> dummyEventList = [
     createdAt: '20200101',
     teamLeader: 1,
     teamMembers: [
-      User(id: '1', email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
-      User(id: '2', email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
-      User(id: '3', email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
-      User(id: '4', email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
+      User(id: 1, email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
+      User(id: 1, email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
+      User(id: 1, email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
+      User(id: 1, email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
     ],
   ),
   Event(
@@ -43,10 +43,10 @@ List<Event> dummyEventList = [
     createdAt: '20200101',
     teamLeader: 1,
     teamMembers: [
-      User(id: '1', email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
-      User(id: '2', email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
-      User(id: '3', email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
-      User(id: '4', email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
+      User(id: 1, email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
+      User(id: 1, email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
+      User(id: 1, email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
+      User(id: 1, email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
     ],
   ),
   Event(
@@ -57,10 +57,10 @@ List<Event> dummyEventList = [
     createdAt: '20200101',
     teamLeader: 1,
     teamMembers: [
-      User(id: '1', email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
-      User(id: '2', email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
-      User(id: '3', email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
-      User(id: '4', email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
+      User(id: 1, email: 'aa@gmail.com', password: 'aa', userName: '이승주'),
+      User(id: 1, email: 'bb@gmail.com', password: 'bb', userName: '박종현'),
+      User(id: 1, email: 'cc@gmail.com', password: 'cc', userName: '이종완'),
+      User(id: 1, email: 'dd@gmail.com', password: 'dd', userName: '임준혁'),
     ],
   ),
   // Event('화양동사건1', '20200202', '서울시 광진구 아차산로 344 111호', '기소완료', dummyUserList[0],

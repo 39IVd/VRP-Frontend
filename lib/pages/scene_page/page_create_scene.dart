@@ -30,7 +30,7 @@ class _CreateScenePageState extends State<CreateScenePage> {
       String zip, int eventId) async {
     final http.Response response = await http.post(
       // TODO: REST API 주소
-      'https://jsonplaceholder.typicode.com/albums',
+      'http://localhost:8081/scenes',
       headers: <String, String>{
         'Authorization': authorization,
       },

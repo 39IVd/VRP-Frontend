@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../models/models.dart';
 import 'package:vrp_frontend/dummylist.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EventListPage extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class EventListPage extends StatefulWidget {
 
 class _EventListPageState extends State<EventListPage> {
   bool isLogin = false;
+  String _accessToken;
   List<Event> eventList = List();
   Future<List<Event>> getMyEvents() async {
     List<Event> eventList = List();
@@ -48,6 +50,13 @@ class _EventListPageState extends State<EventListPage> {
 
   @override
   Widget build(BuildContext context) {
+    // final User user = ModalRoute.of(context).settings.arguments;
+    (() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState(() {
+        _accessToken = prefs.getString('_accessToken');
+      });
+    })();
     eventList = dummyEventList;
     return Scaffold(
       body: Stack(

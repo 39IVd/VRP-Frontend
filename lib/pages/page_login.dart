@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../utils/utils.dart';
 import '../models/models.dart';
+import '../routes.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -16,10 +17,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginState extends State<LoginPage> {
   String _email = '', _password = '';
-  Future<void> postLogin(String email, String password, String userName) async {
+  String _accessToken;
+  User user;
+  Future<bool> postLogin(
+      BuildContext context, String email, String password) async {
     final http.Response response = await http.post(
       // TODO: REST API 주소
       'http://localhost:8082/users/signin',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+      },
       body: jsonEncode(<String, String>{
         'email': email,
         'password': password,
@@ -30,13 +37,16 @@ class _LoginState extends State<LoginPage> {
     if (response.statusCode == 200) {
       // TODO: User에
       // return User(id: id, email: email, password: password);
+      _accessToken = json['data']['accessToken'];
+      // user = User(email: email, accessToken: _accessToken);
+      return true;
     } else if (response.statusCode == 400) {
       // 입력값 실패 / 이메일 없음 / 비밀번호 오류
       // TODO:
-      print(message);
-      throw Exception(message);
+      showFlushBar(context, message);
+      return false;
     } else {
-      throw Exception('왜인지 모르겠지만 실패함');
+      return false;
     }
   }
 
@@ -74,22 +84,25 @@ class _LoginState extends State<LoginPage> {
     final loginButton = Container(
       width: MediaQuery.of(context).size.width / 2.5,
       child: RaisedButton(
-        onPressed: () {
+        onPressed: () async {
           if (!checkEmailValid(_email)) {
             showFlushBar(context, "이메일이 형식에 맞지 않습니다.");
           } else if (_password == '') {
             showFlushBar(context, "올바른 비밀번호를 입력해주세요.");
           } else {
-            (() async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              setState(() {
-                prefs.setBool('isLogin', true);
-              });
-              // print("login");
-              // print("isLogin : ${prefs.getBool('isLogin')}");
-            })();
-            Navigator.popUntil(
-                context, ModalRoute.withName(Navigator.defaultRouteName));
+            bool valid = await postLogin(context, _email, _password);
+            if (valid) {
+              (() async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                setState(() {
+                  prefs.setBool('isLogin', true);
+                  prefs.setString('accessToken', _accessToken);
+                });
+              })();
+              // Navigator.pushNamed(context, Routes.eventList, arguments: user);
+              Navigator.popUntil(
+                  context, ModalRoute.withName(Navigator.defaultRouteName));
+            }
           }
         },
         padding: EdgeInsets.all(12),

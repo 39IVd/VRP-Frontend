@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vrp_frontend/utils/utils.dart';
 import '../../models/models.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateEventPage extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _CreateEventState extends State<CreateEventPage> {
       String eventName, String eventStartedAt, String eventStatus) async {
     final http.Response response = await http.post(
       // TODO: REST API 주소
-      'https://jsonplaceholder.typicode.com/albums',
+      'http://localhost:8081/events',
       headers: <String, String>{
         'Authorization': authorization,
       },
