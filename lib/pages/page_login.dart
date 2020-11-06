@@ -16,13 +16,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginState extends State<LoginPage> {
   String _email = '', _password = '';
-  Future<void> postLogin(String email, String password) async {
+  Future<void> postLogin(String email, String password, String userName) async {
     final http.Response response = await http.post(
       // TODO: REST API 주소
-      'https://jsonplaceholder.typicode.com/albums',
-      headers: <String, String>{
-        'Authorization': authorization,
-      },
+      'http://localhost:8082/users/signin',
       body: jsonEncode(<String, String>{
         'email': email,
         'password': password,
@@ -32,8 +29,6 @@ class _LoginState extends State<LoginPage> {
     String message = json['message'];
     if (response.statusCode == 200) {
       // TODO: User에
-      String accessToken = json['data']['accessToken'];
-      String refreshToken = json['data']['refreshToken'];
       // return User(id: id, email: email, password: password);
     } else if (response.statusCode == 400) {
       // 입력값 실패 / 이메일 없음 / 비밀번호 오류

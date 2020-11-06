@@ -12,38 +12,65 @@ class JoinPage extends StatefulWidget {
 }
 
 class _JoinState extends State<JoinPage> {
-  String _email = '', password = '';
-
-  Future<User> postSignUp(
+  String _email = '', _password = '', _userName = '';
+  User user;
+  Future<bool> postSignUp(
       String email, String password, String userName) async {
     final http.Response response = await http.post(
-      'https://jsonplaceholder.typicode.com/albums',
+      'http://localhost:8082/users/signup',
       headers: <String, String>{
-        'Authorization': authorization,
+        'Content-Type': 'application/json; charset=utf-8',
+        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Credentials":
+        //     true, // Required for cookies, authorization headers with HTTPS
+        'Access-Control-Allow-Headers':
+            "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive'
       },
       body: jsonEncode(<String, String>{
         'email': email,
+        'userName': userName,
         'password': password,
-        'userName': userName
       }),
     );
     Map<String, dynamic> json = jsonDecode(response.body);
     String message = json['message'];
     if (response.statusCode == 201) {
       String id = json['data']['userId'];
-      return User(id: id, email: email, password: password, userName: userName);
+      print("id : $id");
+      user = User(id: id, email: email, password: password, userName: userName);
+      return true;
     } else if (response.statusCode == 400) {
       // 입력값 실패 or 중복된 이메일
       // TODO:
       print(message);
-      throw Exception(message);
+      // throw Exception(message);
+      return false;
     } else {
-      throw Exception('왜인지 모르겠지만 실패함');
+      print(message);
+      // throw Exception('왜인지 모르겠지만 실패함');
+      return false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final userNameTextForm = TextFormField(
+      keyboardType: TextInputType.text,
+      autofocus: false,
+      decoration: InputDecoration(
+        hintText: 'User Name',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      ),
+      onChanged: (String str) {
+        setState(() {
+          _userName = str.trim();
+        });
+      },
+    );
     final emailTextForm = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -68,7 +95,7 @@ class _JoinState extends State<JoinPage> {
       ),
       onChanged: (String str) {
         setState(() {
-          password = str.trim();
+          _password = str.trim();
         });
       },
     );
@@ -76,13 +103,15 @@ class _JoinState extends State<JoinPage> {
     final joinButton = Container(
       width: MediaQuery.of(context).size.width / 2.5,
       child: RaisedButton(
-        onPressed: () {
+        onPressed: () async {
           // TODO: 회원 정보 등록
           if (!checkEmailValid(_email)) {
             showFlushBar(context, "이메일이 형식에 맞지 않습니다.");
-          } else if (password == '') {
+          } else if (_password == '') {
             showFlushBar(context, "올바른 비밀번호를 입력해주세요.");
           } else {
+            await postSignUp(_email, _password, _userName);
+            showFlushBar(context, "회원가입이 완료되었습니다.");
             Navigator.popUntil(
                 context, ModalRoute.withName(Navigator.defaultRouteName));
           }
@@ -122,6 +151,8 @@ class _JoinState extends State<JoinPage> {
                         ),
                       )),
                       SizedBox(height: 48.0),
+                      userNameTextForm,
+                      SizedBox(height: 8.0),
                       emailTextForm,
                       SizedBox(height: 8.0),
                       passwordTextForm,
