@@ -35,10 +35,13 @@ class _LoginState extends State<LoginPage> {
     Map<String, dynamic> json = jsonDecode(response.body);
     String message = json['message'];
     if (response.statusCode == 200) {
-      // TODO: User에
-      // return User(id: id, email: email, password: password);
       _accessToken = json['data']['accessToken'];
-      // user = User(email: email, accessToken: _accessToken);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState(() {
+        prefs.setBool('isLogin', true);
+        prefs.setString('accessToken', _accessToken);
+        print("login accessToken : $_accessToken");
+      });
       return true;
     } else if (response.statusCode == 400) {
       // 입력값 실패 / 이메일 없음 / 비밀번호 오류
@@ -90,18 +93,12 @@ class _LoginState extends State<LoginPage> {
           } else if (_password == '') {
             showFlushBar(context, "올바른 비밀번호를 입력해주세요.");
           } else {
-            bool valid = await postLogin(context, _email, _password);
-            if (valid) {
-              (() async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                setState(() {
-                  prefs.setBool('isLogin', true);
-                  prefs.setString('accessToken', _accessToken);
-                });
-              })();
+            bool success = await postLogin(context, _email, _password);
+            if (success) {
               // Navigator.pushNamed(context, Routes.eventList, arguments: user);
               Navigator.popUntil(
                   context, ModalRoute.withName(Navigator.defaultRouteName));
+              showFlushBar(context, '로그인이 완료되었습니다.');
             }
           }
         },

@@ -99,9 +99,9 @@ class _JoinState extends State<JoinPage> {
           } else if (_password == '') {
             showFlushBar(context, "올바른 비밀번호를 입력해주세요.");
           } else {
-            bool valid =
+            bool success =
                 await postSignUp(context, _email, _password, _userName);
-            if (valid) {
+            if (success) {
               Navigator.popUntil(
                   context, ModalRoute.withName(Navigator.defaultRouteName));
               showFlushBar(context, "회원가입이 완료되었습니다.");

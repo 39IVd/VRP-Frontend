@@ -28,11 +28,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
   @override
   void initState() {
+    super.initState();
     sceneList = dummySceneList;
     sceneNameList = sceneList.map((Scene e) => e.sceneName).toList();
     sceneCreatedAtList = sceneList.map((e) => e.createdAt).toList();
     _selectedScene = sceneList[currentSceneIndex];
-    super.initState();
   }
 
   Future getTeamLeader() async {

@@ -18,6 +18,17 @@ class _EventListPageState extends State<EventListPage> {
   bool isLogin = false;
   String _accessToken;
   List<Event> eventList = List();
+  @override
+  void initState() {
+    super.initState();
+    (() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState(() {
+        _accessToken = prefs.getString('_accessToken');
+      });
+    })();
+  }
+
   Future<List<Event>> getMyEvents() async {
     List<Event> eventList = List();
     final http.Response response = await http.get(
@@ -51,12 +62,7 @@ class _EventListPageState extends State<EventListPage> {
   @override
   Widget build(BuildContext context) {
     // final User user = ModalRoute.of(context).settings.arguments;
-    (() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      setState(() {
-        _accessToken = prefs.getString('_accessToken');
-      });
-    })();
+
     eventList = dummyEventList;
     return Scaffold(
       body: Stack(
