@@ -59483,7 +59483,7 @@ a2B:function(a){var s=0,r=P.W(t.yq),q,p=this,o,n,m,l
 var $async$tJ=P.P(function(b,c){if(b===1)return P.T(c,r)
 while(true)switch(s){case 0:P.cM("accessToken in func : "+H.b(p.x))
 o=t.X
-n=P.aw(["Content-Type","application/json; charset=utf-8","Authorization",p.x,"Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","POST, OPTIONS","Access-Control-Allow-Headers","Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Access-Control-Allow-Origin"],o,o)
+n=P.aw(["Content-Type","application/json; charset=utf-8","Authorization",p.x,"Access-Control-Allow-Origin","https://vrcrimescene.netlify.app","Access-Control-Allow-Methods","POST, OPTIONS","Access-Control-Allow-Headers","Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Access-Control-Allow-Origin"],o,o)
 s=3
 return P.a5(G.a9R("http://localhost:8081/events",C.aa.rK(P.aw(["eventName",p.e,"eventStartedAt","2012-04-23T18:25:43.511Z","eventStatus",p.r],o,o),null),n),$async$tJ)
 case 3:m=c
@@ -59993,7 +59993,7 @@ A.uK.prototype={
 ad:function(){return new A.Js(C.k)}}
 A.Js.prototype={
 E:function(a,b){var s=null,r=T.nJ(b,t._).b.b,q=$.i6()
-return M.fL(C.j,E.iQ(M.Z(s,T.cq(H.c([new R.dk(s),new T.aG(C.A,s,s,M.Z(s,L.ak("Scene Detail",s,s,s,q,s),s,s,s,s,s,C.ao,s,s),s),new T.aG(C.A,s,s,M.Z(s,L.ak(r.b,s,s,s,q,s),s,s,s,s,s,C.ao,s,s),s),T.bl(U.RV("images/scenes/"+r.r+".jpg",C.mo,s,s),500,s),M.Z(s,s,s,s,s,30,s,s,s,s),new L.hP("\uc8fc\uc18c 1 : "+r.c,s),new L.hP("\uc8fc\uc18c 2 : "+r.d,s),new L.oI("\ub4f1\ub85d\uc77c : "+r.f,s),M.Z(s,s,s,s,s,30,s,s,s,s),C.aX,new O.eg(s)],t.t),C.R,C.G,C.J),s,s,s,s,s,new V.X(32,0,32,0),s,s)))}}
+return M.fL(C.j,E.iQ(M.Z(s,T.cq(H.c([new R.dk(s),new T.aG(C.A,s,s,M.Z(s,L.ak("Scene Detail",s,s,s,q,s),s,s,s,s,s,C.ao,s,s),s),new T.aG(C.A,s,s,M.Z(s,L.ak(r.b,s,s,s,q,s),s,s,s,s,s,C.ao,s,s),s),T.bl(U.RV("assets/images/scenes/"+r.r+".jpg",C.mo,s,s),500,s),M.Z(s,s,s,s,s,30,s,s,s,s),new L.hP("\uc8fc\uc18c 1 : "+r.c,s),new L.hP("\uc8fc\uc18c 2 : "+r.d,s),new L.oI("\ub4f1\ub85d\uc77c : "+r.f,s),M.Z(s,s,s,s,s,30,s,s,s,s),C.aX,new O.eg(s)],t.t),C.R,C.G,C.J),s,s,s,s,s,new V.X(32,0,32,0),s,s)))}}
 S.vE.prototype={
 ad:function(){return new S.KO(C.k)}}
 S.KO.prototype={

@@ -49,7 +49,7 @@ class _SceneDetailPageState extends State<SceneDetailPage> {
               SizedBox(
                 height: 500,
                 child: Image.asset(
-                  'images/scenes/${scene.fileId}.jpg',
+                  'assets/images/scenes/${scene.fileId}.jpg',
                   fit: BoxFit.cover,
                 ),
               ),
