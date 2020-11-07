@@ -59612,7 +59612,7 @@ s.push(C.aX)
 s.push(new O.eg(l))
 return M.fL(C.j,E.iQ(M.Z(l,T.cq(s,C.R,C.G,C.J),l,l,l,l,l,new V.X(32,0,32,0),l,l)))},
 KP:function(a){var s,r=H.c([],t.Hl)
-for(s=0;s<a.length;++s)r.push(new G.B1(U.RV("images/scenes/"+a[s].r+".jpg",C.mo,null,null)))
+for(s=0;s<a.length;++s)r.push(new G.B1(U.RV("assets/images/scenes/"+a[s].r+".jpg",C.mo,null,null)))
 return r}}
 L.a17.prototype={
 $1:function(a){return a.b},

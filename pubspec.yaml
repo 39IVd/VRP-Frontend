@@ -44,5 +44,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/scenes/
     # - assets/files/
     # - web/

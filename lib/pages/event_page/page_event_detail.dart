@@ -264,7 +264,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
       String fileId = sceneList[i].fileId;
       items.add(ImageCarditem(
         image: Image.asset(
-          'images/scenes/${fileId}.jpg',
+          'assets/images/scenes/${fileId}.jpg',
           fit: BoxFit.cover,
         ),
       ));
