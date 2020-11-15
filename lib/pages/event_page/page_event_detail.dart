@@ -29,19 +29,20 @@ class _EventDetailPageState extends State<EventDetailPage> {
   String _accessToken;
   Event event;
   bool _eventLoaded = false;
+  int _selectedEventId;
 
   @override
   void initState() {
     super.initState();
-    final int eventId = ModalRoute.of(context).settings.arguments;
     (() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       setState(() {
         _accessToken = prefs.getString('accessToken');
+        _selectedEventId = prefs.getInt('selectedEventId');
       });
       print("accessToken in initstate : $_accessToken");
 
-      Event eventDetail = await getEventDetail(eventId);
+      Event eventDetail = await getEventDetail(_selectedEventId);
       setState(() {
         event = eventDetail;
         if (event != null) {
@@ -57,7 +58,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
   Future<Event> getEventDetail(int eventId) async {
     print("accessToken in func : $_accessToken");
-    // var eventDetail;
     final http.Response response = await http.get(
       'http://localhost:8081/events/${eventId}',
       headers: <String, String>{
@@ -68,10 +68,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
     if (response.statusCode == 200) {
       Event eventDetail = Event.fromJson(json['data']);
       return eventDetail;
-    } else if (response.statusCode == 401) {
+    } else if (response.statusCode == 401 || response.statusCode == 400) {
       // 허가되지 않은 유저 / 입력값 실패 / 권한 없는 유저
       String message = json['message'];
       showFlushBar(context, message);
+      print(message);
     }
     return null;
   }
@@ -79,18 +80,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
   @override
   Widget build(BuildContext context) {
     // final Event eventArg = ModalRoute.of(context).settings.arguments;
-    // (() async {
-    //   event = await getEventDetail(eventArg);
-    // })();
-    // sceneList = event.scenes;
-    // sceneNameList = sceneList.map((Scene e) => e.sceneName).toList();
-    // sceneCreatedAtList = sceneList.map((e) => e.createdAt).toList();
-    // _selectedScene = sceneList[currentSceneIndex];
 
-    // String teamMemberName = '';
-    // event.teamMembers.map((e) => e.userName).toList().forEach((element) {
-    //   teamMemberName += element + '  ';
-    // });
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

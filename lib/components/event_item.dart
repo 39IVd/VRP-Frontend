@@ -4,6 +4,7 @@ import 'package:vrp_frontend/routes.dart';
 import 'package:vrp_frontend/models/models.dart';
 import 'components.dart';
 import 'package:vrp_frontend/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EventItem extends StatelessWidget {
   final Event event;
@@ -67,9 +68,17 @@ class EventItem extends StatelessWidget {
                     margin: marginBottom24,
                     // 자세히 보기
                     child: EventDetailButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, Routes.eventDetail,
-                          arguments: event.eventId),
+                      onPressed: () {
+                        (() async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.setInt('selectedEventId', event.eventId);
+                          print("event selected : ${event.eventId}");
+                        })();
+                        Navigator.pushNamed(context, Routes.eventDetail);
+                        // Navigator.pushNamed(context, Routes.eventDetail,
+                        //     arguments: event.eventId);
+                      },
                     ),
                   ),
                 ),
