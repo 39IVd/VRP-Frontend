@@ -9,6 +9,7 @@ import 'dart:html';
 import 'dart:typed_data';
 import 'package:vrp_frontend/utils/utils.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateScenePage extends StatefulWidget {
   CreateScenePage({Key key}) : super(key: key);
@@ -22,59 +23,48 @@ class _CreateScenePageState extends State<CreateScenePage> {
   int _eventId;
   Uint8List uploadedImage;
   String pickedImage;
-  String _fileName = '';
-  int _fileSize = 0;
-  PlatformFile _pickedFile;
+  String _sceneFileName = '', _evidenceFileName = '';
+  int _sceneFileSize = 0, _evidenceFileSize = 0;
+  PlatformFile _pickedSceneFile, _pickedEvidenceFile;
+  String _accessToken;
+  @override
+  void initState() {
+    super.initState();
+    (() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState(() {
+        _accessToken = prefs.getString('accessToken');
+        _eventId = prefs.getInt('eventId');
+      });
+      print("accessToken in initstate : $_accessToken");
+    })();
+  }
 
-  Future<User> registerScene(String sceneName, String address1, String address2,
-      String zip, int eventId) async {
+  Future<bool> registerScene(BuildContext context) async {
     final http.Response response = await http.post(
       // TODO: REST API 주소
       'http://localhost:8081/scenes',
       headers: <String, String>{
-        'Authorization': authorization,
+        'Authorization': _accessToken,
       },
       body: jsonEncode(<String, Object>{
-        "sceneName": sceneName,
-        "address1": address1,
-        "address2": address2,
-        "zip": zip,
-        "eventId": eventId,
+        "sceneName": _sceneName,
+        "address1": _address1,
+        "address2": _address2,
+        "zip": _zip,
+        "eventId": _eventId,
       }),
     );
     Map<String, dynamic> json = jsonDecode(response.body);
-    String message = json['message'];
     if (response.statusCode == 201) {
-      String sceneId = json['data']['sceneId'];
-    } else if (response.statusCode == 401) {
-      // 허가되지 않은 유저
-      // TODO:
-      throw Exception(message);
-    } else if (response.statusCode == 400) {
-      // 입력값 실패 / 존재하지 않는 사건 / 사건 수정 권한 없음 / 사건 내 현장 이름 중복
-      // TODO:
-      throw Exception(message);
+      var sceneId = json['data']['sceneId'];
+      print("sceneId : $sceneId");
+      return true;
     } else {
-      throw Exception('왜인지 모르겠지만 실패함');
+      String message = json['message'];
+      showFlushBar(context, message);
+      return false;
     }
-  }
-
-  Future<String> _pickImageFile() {
-    final completer = new Completer<String>();
-    final InputElement input = document.createElement('input');
-    input
-      ..type = 'file'
-      ..accept = 'image/*';
-    input.onChange.listen((e) async {
-      final List<File> files = input.files;
-      final reader = new FileReader();
-      reader.readAsDataUrl(files[0]);
-      reader.onError.listen((error) => completer.completeError(error));
-      await reader.onLoad.first;
-      completer.complete(reader.result as String);
-    });
-    input.click();
-    return completer.future;
   }
 
   Future<PlatformFile> pickImageFile() async {
@@ -84,48 +74,11 @@ class _CreateScenePageState extends State<CreateScenePage> {
     );
     PlatformFile pickedFile;
     if (result != null) {
-      // File file = File(result.files.single.path);
       pickedFile = result.files.first;
-      // setState(() {
-      //   _fileName = pickedFile.name;
-      //   _fileSize = pickedFile.size;
-      // });
-      // print('file name : ${pickedFile.name}');
-      // print('file size : ${pickedFile.size}');
     } else {
-      // User canceled the picpickedFileker
       print("user canceled");
     }
     return pickedFile;
-  }
-
-  _startFilePicker() async {
-    InputElement uploadInput = FileUploadInputElement();
-    uploadInput.click();
-
-    uploadInput.onChange.listen((e) {
-      // read file content as dataURL
-      final files = uploadInput.files;
-      if (files.length == 1) {
-        final file = files[0];
-        FileReader reader = FileReader();
-
-        reader.onLoadEnd.listen((e) {
-          setState(() {
-            uploadedImage = reader.result;
-          });
-        });
-
-        reader.onError.listen((fileEvent) {
-          showFlushBar(context, '파일을 읽는 도중에 오류가 발생했습니다.');
-          // setState(() {
-          //   // option1Text = "Some Error occured while reading the file";
-          // });
-        });
-
-        reader.readAsArrayBuffer(file);
-      }
-    });
   }
 
   @override
@@ -184,25 +137,49 @@ class _CreateScenePageState extends State<CreateScenePage> {
         });
       },
     );
-    final uploadFileButton = Container(
+    final uploadSceneFileButton = Container(
       alignment: Alignment.centerLeft,
       child: RawMaterialButton(
         onPressed: () async {
-          // _startFilePicker();
-          // TODO:
-          // pickedImage = await _pickImageFile();
-          _pickedFile = await pickImageFile();
-          if (_pickedFile != null) {
+          _pickedSceneFile = await pickImageFile();
+          if (_pickedSceneFile != null) {
             setState(() {
-              _fileName = _pickedFile.name;
-              _fileSize = _pickedFile.size;
-              print("fileSize : $_fileSize");
+              _sceneFileName = _pickedSceneFile.name;
+              _sceneFileSize = _pickedSceneFile.size;
+              print("fileSize : $_sceneFileSize");
             });
           }
-          // showFlushBar(context, 'picked Image : $pickedImage');
         },
         child: Text(
           '현장 사진 업로드',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        fillColor: Colors.grey[300],
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        elevation: 0,
+        hoverElevation: 0,
+        hoverColor: Colors.grey[400],
+        highlightElevation: 0,
+        focusElevation: 0,
+      ),
+    );
+    final uploadEventFileButton = Container(
+      alignment: Alignment.centerLeft,
+      child: RawMaterialButton(
+        onPressed: () async {
+          _pickedEvidenceFile = await pickImageFile();
+          if (_pickedEvidenceFile != null) {
+            setState(() {
+              _evidenceFileName = _pickedEvidenceFile.name;
+              _evidenceFileSize = _pickedEvidenceFile.size;
+              print("fileSize : $_evidenceFileSize");
+            });
+          }
+        },
+        child: Text(
+          '증거물 사진 업로드',
           style: TextStyle(
             color: Colors.black,
           ),
@@ -220,17 +197,20 @@ class _CreateScenePageState extends State<CreateScenePage> {
     final registerButton = Container(
       width: MediaQuery.of(context).size.width / 2.5,
       child: RaisedButton(
-        onPressed: () {
+        onPressed: () async {
           if (_sceneName == '' ||
               _address1 == '' ||
               _address2 == '' ||
               _zip == '') {
             showFlushBar(context, "올바른 형식을 입력해주세요.");
-          } else if (_pickedFile == null) {
-            showFlushBar(context, "현장 사진을 등록해주세요.");
+          } else if (_pickedSceneFile == null || _pickedEvidenceFile == null) {
+            showFlushBar(context, "사진을 등록해주세요.");
           } else {
-            Navigator.pop(context);
-            showFlushBar(context, "새 현장이 등록되었습니다.");
+            bool success = await registerScene(context);
+            if (success) {
+              Navigator.pop(context);
+              showFlushBar(context, "새 현장이 등록되었습니다.");
+            }
           }
         },
         padding: EdgeInsets.all(12),
@@ -291,20 +271,43 @@ class _CreateScenePageState extends State<CreateScenePage> {
                         SizedBox(height: 8.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: _pickedFile == null
-                              ? [uploadFileButton]
+                          children: _pickedSceneFile == null
+                              ? [uploadSceneFileButton]
                               : [
-                                  uploadFileButton,
+                                  uploadSceneFileButton,
                                   Container(width: 20),
                                   Text(
-                                    '파일명 : ${_fileName}',
+                                    '파일명 : ${_sceneFileName}',
                                     style: TextStyle(
                                       color: Colors.black,
                                     ),
                                   ),
                                   Container(width: 10),
                                   Text(
-                                    '파일 사이즈 : ${_fileSize}',
+                                    '파일 사이즈 : ${_sceneFileSize}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                        ),
+                        SizedBox(height: 8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: _pickedEvidenceFile == null
+                              ? [uploadEventFileButton]
+                              : [
+                                  uploadEventFileButton,
+                                  Container(width: 20),
+                                  Text(
+                                    '파일명 : ${_evidenceFileName}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Container(width: 10),
+                                  Text(
+                                    '파일 사이즈 : ${_evidenceFileSize}',
                                     style: TextStyle(
                                       color: Colors.black,
                                     ),

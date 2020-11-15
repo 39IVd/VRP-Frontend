@@ -72,12 +72,13 @@ class EventItem extends StatelessWidget {
                         (() async {
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
-                          prefs.setInt('selectedEventId', event.eventId);
+                          prefs.setInt('eventId', event.eventId);
                           print("event selected : ${event.eventId}");
                         })();
-                        Navigator.pushNamed(context, Routes.eventDetail);
-                        // Navigator.pushNamed(context, Routes.eventDetail,
-                        //     arguments: event.eventId);
+                        // TODO:
+                        // Navigator.pushNamed(context, Routes.eventDetail);
+                        Navigator.pushNamed(context, Routes.eventDetail,
+                            arguments: event);
                       },
                     ),
                   ),
