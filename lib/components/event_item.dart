@@ -69,7 +69,7 @@ class EventItem extends StatelessWidget {
                     child: EventDetailButton(
                       onPressed: () => Navigator.pushNamed(
                           context, Routes.eventDetail,
-                          arguments: event),
+                          arguments: event.eventId),
                     ),
                   ),
                 ),

@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../models/models.dart';
 import 'package:vrp_frontend/dummylist.dart';
+import 'package:vrp_frontend/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EventListPage extends StatefulWidget {
@@ -18,52 +19,51 @@ class _EventListPageState extends State<EventListPage> {
   bool isLogin = false;
   String _accessToken;
   List<Event> eventList = List();
+  bool _eventLoaded = false;
   @override
   void initState() {
     super.initState();
     (() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       setState(() {
-        _accessToken = prefs.getString('_accessToken');
+        _accessToken = prefs.getString('accessToken');
+      });
+      print("accessToken in initstate : $_accessToken");
+      List events = await getMyEvents();
+      setState(() {
+        eventList = events;
+        _eventLoaded = true;
       });
     })();
   }
 
   Future<List<Event>> getMyEvents() async {
     List<Event> eventList = List();
+    print("accessToken in func : $_accessToken");
     final http.Response response = await http.get(
-        // TODO:
-        'https://jsonplaceholder.typicode.com/albums/1');
+      'http://localhost:8081/events',
+      headers: <String, String>{
+        'Authorization': _accessToken,
+      },
+    );
     Map<String, dynamic> json = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      // Map<String, dynamic> events = json['data']['events'];
-      List events = json['data']['events'];
-      // TODO:
-      // for (var e in events) {
-      //   String eventId = events['eventId'];
-      //   String createdAt = events['createdAt'];
-      //   String eventStartedAt = events['eventStartedAt'];
-      //   String eventStatus = events['eventStatus'];
-      //   String eventName = events['eventName'];
-      //   String teamLeader = events['teamLeader'];
-      // }
-      return eventList;
+      eventList = (json['data']['events'] as List)
+          .map((e) => Event.fromJson(e))
+          .toList();
+      for (var e in eventList) {
+        print(e.eventName);
+      }
     } else if (response.statusCode == 401) {
-      // 허가되지 않은 유저
-      // TODO:
+      // 허가되지 않은 유저입니다
       String message = json['message'];
-      print(message);
-      throw Exception(message);
-    } else {
-      throw Exception('왜인지 모르겠지만 실패함');
+      showFlushBar(context, message);
     }
+    return eventList;
   }
 
   @override
   Widget build(BuildContext context) {
-    // final User user = ModalRoute.of(context).settings.arguments;
-
-    eventList = dummyEventList;
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -74,15 +74,33 @@ class _EventListPageState extends State<EventListPage> {
                 children: <Widget>[
                   NavigationBar(),
                   AddEventButton(),
-                  GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(20),
-                    physics: NeverScrollableScrollPhysics(),
-                    children: List.generate(eventList.length, (index) {
-                      return EventItem(event: eventList[index]);
-                    }),
-                  ),
+                  !_eventLoaded
+                      ? Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(0, 200, 0, 200),
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : eventList.isEmpty
+                          ? Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(0, 200, 0, 200),
+                                child:
+                                    Text("NO EVENTS", style: headlineTextStyle),
+                              ),
+                            )
+                          : GridView.count(
+                              crossAxisCount: 2,
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(20),
+                              physics: NeverScrollableScrollPhysics(),
+                              children:
+                                  List.generate(eventList.length, (index) {
+                                return EventItem(event: eventList[index]);
+                              }),
+                            ),
                   divider,
                   Footer(),
                 ],

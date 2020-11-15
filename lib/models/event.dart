@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'user.dart';
+import 'scene.dart';
 
 class Event {
   int eventId;
@@ -19,11 +20,27 @@ class Event {
       this.teamMembers});
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
+      eventId: json['eventId'],
       eventName: json['eventName'],
       eventStartedAt: json['eventStartedAt'],
       eventStatus: json['eventStatus'],
       teamLeader: json['teamLeader'],
+      scenes: json['scenes'] == null
+          ? List()
+          : (json['scenes']['scenes'] as List)
+              .map((s) => Scene.fromJson(s))
+              .toList(),
+      teamMembers: json['teamMembers'] == null
+          ? List()
+          : (json['teamMembers'] as List).map((m) => User.fromJson(m)).toList(),
     );
+  }
+  setScenes(List scenes) {
+    this.scenes = scenes;
+  }
+
+  setTeamMembers(List users) {
+    this.teamMembers = users;
   }
   // void updateEvent(String eventName, String happenedAt, address, eventStatus) {
   //   this.eventName = eventName;

@@ -30,9 +30,10 @@ class _JoinState extends State<JoinPage> {
     Map<String, dynamic> json = jsonDecode(response.body);
     String message = json['message'];
     if (response.statusCode == 201) {
-      int id = json['data']['userId'];
-      print("id : $id");
-      user = User(id: id, email: email, password: password, userName: userName);
+      int userId = json['data']['userId'];
+      print("id : $userId");
+      user = User(
+          userId: userId, email: email, password: password, userName: userName);
       return true;
     } else if (response.statusCode == 400) {
       // 입력값 실패 or 중복된 이메일

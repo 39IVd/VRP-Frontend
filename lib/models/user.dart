@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class User {
-  int id;
+  int userId;
   String email, password, userName;
   String refreshToken, accessToken;
   User(
-      {this.id,
+      {this.userId,
       this.email,
       this.password,
       this.userName,
@@ -13,9 +13,8 @@ class User {
       this.refreshToken});
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'],
+      userId: json['userId'],
       email: json['email'],
-      password: json['password'],
       userName: json['name'],
     );
   }

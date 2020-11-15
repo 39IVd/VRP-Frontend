@@ -23,8 +23,8 @@ class _MyPageState extends State<MyPage> {
     if (response.statusCode == 200) {
       String email = json['data']['email'];
       String userName = json['data']['userName'];
-      int id = json['data']['userId'];
-      return User(id: id, email: email, userName: userName);
+      int userId = json['data']['userId'];
+      return User(userId: userId, email: email, userName: userName);
     } else if (response.statusCode == 401) {
       // 허가되지 않은 유저
       // TODO:

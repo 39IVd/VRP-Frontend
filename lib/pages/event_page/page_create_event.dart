@@ -32,35 +32,14 @@ class _CreateEventState extends State<CreateEventPage> {
   Future<bool> registerEvent(BuildContext context) async {
     print("accessToken in func : $_accessToken");
     final http.Response response = await http.post(
-      // TODO: REST API 주소
       'http://localhost:8081/events',
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=utf-8',
         'Authorization': _accessToken,
-        // 'Connection': 'keep-alive',
-        // 'Accept': '*/*',
-
-        "Access-Control-Allow-Origin":
-            "https://vrcrimescene.netlify.app", // Required for CORS support to work
-        // "Access-Control-Allow-Credentials":
-        //     true, // Required for cookies, authorization headers with HTTPS
-        // "Access-Control-Allow-Headers":
-        //     "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers":
-            "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Access-Control-Allow-Origin"
       },
       body: jsonEncode(<String, String>{
         'eventName': _eventName,
-        // 'eventStartedAt': _eventStartedAt,
         'eventStartedAt': '2012-04-23T18:25:43.511Z',
         'eventStatus': _eventStatus,
-        // "eventName": "로빈아22",
-        // "eventStartedAt": "2012-04-23T18:25:43.511Z",
-        // "address1": "서울시 광진구 아차산로 375",
-        // "address2": "1111호",
-        // "zip": "100",
-        // "eventStatus": "UNDER_INVESTIGATION"
       }),
     );
     Map<String, dynamic> json = jsonDecode(response.body);
